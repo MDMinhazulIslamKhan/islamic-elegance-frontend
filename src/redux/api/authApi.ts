@@ -1,13 +1,13 @@
 import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
-const USER_URL = "/user";
+const AUTH_URL = "/auth";
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     userLogin: build.mutation({
       query: (loginData) => ({
-        url: `${USER_URL}/login`,
+        url: `${AUTH_URL}/login`,
         method: "POST",
         data: loginData,
       }),
@@ -15,7 +15,7 @@ export const userApi = baseApi.injectEndpoints({
     }),
     userRegistration: build.mutation({
       query: (loginData) => ({
-        url: `${USER_URL}/signup`,
+        url: `${AUTH_URL}/signup`,
         method: "POST",
         data: loginData,
       }),
@@ -23,7 +23,7 @@ export const userApi = baseApi.injectEndpoints({
     }),
     updateProfile: build.mutation({
       query: (data) => ({
-        url: `${USER_URL}/profile`,
+        url: `${AUTH_URL}/profile`,
         method: "PATCH",
         data: data,
       }),
@@ -31,7 +31,7 @@ export const userApi = baseApi.injectEndpoints({
     }),
     updatePassword: build.mutation({
       query: (data) => ({
-        url: `${USER_URL}/change-password`,
+        url: `${AUTH_URL}/change-password`,
         method: "PATCH",
         data: data,
       }),
@@ -40,7 +40,7 @@ export const userApi = baseApi.injectEndpoints({
     getAllUser: build.query({
       query: () => {
         return {
-          url: `${USER_URL}/get-all-users`,
+          url: `${AUTH_URL}/get-all-users`,
           method: "GET",
         };
       },
@@ -49,7 +49,7 @@ export const userApi = baseApi.injectEndpoints({
     getMyProfile: build.query({
       query: () => {
         return {
-          url: `${USER_URL}/profile`,
+          url: `${AUTH_URL}/profile`,
           method: "GET",
         };
       },

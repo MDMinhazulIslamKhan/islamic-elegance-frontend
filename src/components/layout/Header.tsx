@@ -9,9 +9,13 @@ import {
   AlignRightOutlined,
 } from "@ant-design/icons";
 import { useState } from "react";
+import { getUserInfo } from "@/services/auth.service";
+import { useAppSelector } from "@/redux/hooks";
 
 const Header = () => {
   const [toggle, setToggle] = useState(false);
+  const { role } = getUserInfo() as any;
+  const { isLogin } = useAppSelector((state) => state.loginInfo);
 
   const items: MenuProps["items"] = [
     {
@@ -102,12 +106,23 @@ const Header = () => {
             Islamic Elegance
           </p>
         </Link>
-        <div className="hidden sm:flex flex-row items-center gap-4 md:gap-10">
+        <div
+          className="hidden sm:flex flex-row justify-center
+         items-center gap-3 md:gap-10"
+        >
+          {isLogin && (role == "admin" || role == "superAdmin") && (
+            <Link href="/dashboard">
+              <p className="font-serif hover:text-black text-primary sm:text-md font-bold">
+                Dashboard
+              </p>
+            </Link>
+          )}
           <Dropdown arrow menu={{ items }}>
-            <p className="font-serif hover:text-black text-primary mx-3 sm:text-lg font-extrabold">
+            <p className="font-serif hover:text-black text-primary sm:text-md font-bold">
               Products
             </p>
           </Dropdown>
+
           <Link href="/cart">
             <ShoppingCartOutlined className="text-primary hover:text-black font-extrabold text-3xl" />
           </Link>
@@ -120,11 +135,16 @@ const Header = () => {
           {toggle ? <CloseOutlined /> : <AlignRightOutlined />}
         </div>
         <div
-          className={`fixed sm:hidden inset-y-0 right-0 z-50 top-20 h-1/5 rounded-bl-lg bg-neutral w-36 shadow-md transform overflow-y-auto transition-transform duration-500 ease-in-out ${
+          className={`fixed sm:hidden inset-y-0 right-0 z-50 top-20 h-40 rounded-bl-lg bg-neutral w-36 shadow-md transform overflow-y-auto transition-transform duration-500 ease-in-out ${
             toggle ? "overflow-hidden" : "translate-x-full"
           }`}
         >
           <div className="flex flex-col justify-center items-center">
+            {isLogin && (role == "admin" || role == "superAdmin") && (
+              <Link href="/dashboard">
+                <p className="btn btn-sm w-24 my-2 btn-secondary">Dashboard</p>
+              </Link>
+            )}
             <Dropdown arrow menu={{ items }}>
               <button className="btn btn-sm w-24 my-2 btn-secondary">
                 Products

@@ -4,13 +4,16 @@ import { SubmitHandler } from "react-hook-form";
 import FormInput from "@/components/Forms/FormInput";
 import PassWordInput from "@/components/Forms/PasswordInput";
 import { login } from "@/redux/features/userSlice";
-import { loginSchema } from "@/schemas/allValidationSchema";
+import { registrationSchema } from "@/schemas/allValidationSchema";
 import { storeUserInfo } from "@/services/auth.service";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useUserLoginMutation } from "@/redux/api/authApi";
+import {
+  useUserLoginMutation,
+  useUserRegistrationMutation,
+} from "@/redux/api/authApi";
 import { useRouter } from "next/navigation";
 import { message } from "antd";
 import { RouterProtector } from "@/helpers/routerProtector/routerProtectorWithRole";
@@ -19,17 +22,20 @@ type FormValues = {
   phoneNumber: string;
   password: string;
 };
-const Login = () => {
+const Registration = () => {
   const router = useRouter();
-  const [userLogin] = useUserLoginMutation(undefined);
+  const [userRegistration] = useUserRegistrationMutation(undefined);
   const dispatch = useDispatch();
 
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
+    if (!data.email) {
+      delete data.email;
+    }
     try {
-      const res = await userLogin({ ...data }).unwrap();
+      const res = await userRegistration({ ...data }).unwrap();
       if (res?.data?.accessToken) {
         storeUserInfo({ accessToken: res?.data?.accessToken });
-        message.success("Login successful");
+        message.success("Registration successful");
         dispatch(login());
         router.back();
       } else {
@@ -40,19 +46,40 @@ const Login = () => {
     }
   };
   return (
-    <div className="flex justify-center items-center sm:mt-40 sm:my-0 my-5">
+    <div className="flex justify-center items-center  sm:my-20 my-5">
       <div className="w-full max-w-sm shadow-2xl rounded-xl pb-10">
         <div className="card-body">
           <h2 className="text-primary mt-2 mb-5 font-bold text-3xl font-serif text-center">
-            Login
+            Registration
           </h2>
-          <Form submitHandler={onSubmit} resolver={yupResolver(loginSchema)}>
+          <Form
+            submitHandler={onSubmit}
+            resolver={yupResolver(registrationSchema)}
+          >
+            <div className="form-control w-full max-w-xs">
+              <FormInput
+                name="fullName"
+                type="text"
+                label="Full Name"
+                placeholder="Your Name"
+                required
+              />
+            </div>
             <div className="form-control w-full max-w-xs">
               <FormInput
                 name="phoneNumber"
                 type="text"
                 label="Phone Number"
+                placeholder="Your Mobile Number"
                 required
+              />
+            </div>
+            <div className="form-control w-full max-w-xs">
+              <FormInput
+                name="email"
+                type="email"
+                label="Email"
+                placeholder="Your Email"
               />
             </div>
             <div className="form-control w-full max-w-xs">
@@ -63,17 +90,17 @@ const Login = () => {
                 type="submit"
                 className="btn btn-primary text-white font-bold"
               >
-                Login
+                Registration
               </button>
             </div>
           </Form>
           <p className="text-xs text-center">
-            New to Islamic Elegance?{"  "}
+            Already have an account?{"  "}
             <Link
               className="text-secondary inline-block hover:text-primary"
-              href="/registration"
+              href="/login"
             >
-              Create New Account
+              Please Login
             </Link>
           </p>
         </div>
@@ -82,10 +109,10 @@ const Login = () => {
   );
 };
 
-const LoginWithProtector = () => (
+const RegistrationWithProtector = () => (
   <RouterProtector allowedRoles={null}>
-    <Login />
+    <Registration />
   </RouterProtector>
 );
 
-export default LoginWithProtector;
+export default RegistrationWithProtector;

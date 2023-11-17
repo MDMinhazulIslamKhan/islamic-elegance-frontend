@@ -3,8 +3,10 @@ import * as yup from "yup";
 export const loginSchema = yup.object().shape({
   phoneNumber: yup
     .string()
-    .min(11)
-    .max(14)
+    .min(11, "Must be at least 11 characters")
+    .max(11, "Can't exceed 11 characters")
+    // .matches(/^(\+88)?01[3456789]\d{8}$/, "Invalid phone number")
+    .matches(/^01[3456789]\d{8}$/, "Invalid phone number")
     .required("Phone Number is required"),
   password: yup.string().min(3).max(15).required("Password is required"),
 });
@@ -20,8 +22,9 @@ export const registrationSchema = yup.object().shape({
   fullName: yup.string().min(6).max(32).required("Name is required"),
   phoneNumber: yup
     .string()
-    .min(11)
-    .max(14)
+    .min(11, "Must be at least 11 characters")
+    .max(11, "Can't exceed 11 characters")
+    .matches(/^01[3456789]\d{8}$/, "Invalid phone number")
     .required("Phone Number is required"),
 });
 
