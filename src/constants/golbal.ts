@@ -1,25 +1,25 @@
-export const pageOptions = [
-  {
-    label: "5",
-    value: 5,
-  },
-  {
-    label: "10",
-    value: 10,
-  },
-  {
-    label: "15",
-    value: 15,
-  },
+export const categoryOptions = [
+  { label: "Select", value: "" },
+  { label: "Jacket", value: "Jacket" },
+  { label: "Hoodie", value: "Hoodie" },
+  { label: "Jersey", value: "Jersey" },
+  { label: "Panjabi", value: "Panjabi" },
+  { label: "T-shirt", value: "T-shirt" },
+  { label: "Borka", value: "Borka" },
+  { label: "Attar", value: "Attar" },
 ];
 
-export const statusOptions = [
-  {
-    label: "Available",
-    value: "available",
-  },
-  {
-    label: "Unavailable",
-    value: "unavailable",
-  },
+export const availability = [
+  { label: "Select", value: "" },
+  { label: "Available", value: true },
+  { label: "Unavailable", value: false },
+];
+
+export const sizeOptions = [
+  { label: "SM", value: "SM" },
+  { label: "M", value: "M" },
+  { label: "L", value: "L" },
+  { label: "XL", value: "XL" },
+  { label: "XXL", value: "XXL" },
+  { label: "500 mL", value: "500mL" },
 ];

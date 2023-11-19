@@ -35,20 +35,13 @@ export const updateProfileSchema = yup.object().shape({
 
 export const createProductSchema = yup.object().shape({
   proId: yup.string().optional(),
-  // imgURL;
   name: yup.string().required("Name is required"),
   category: yup.string().required("Category is required"),
+  imgURL: yup.mixed().test("is-file", "Image is required", (value: any) => {
+    return value && value.length > 0;
+  }),
   price: yup.number().required("Price is required"),
   description: yup.string().min(6).required("Description is required"),
   facebookURL: yup.string().optional(),
   availability: yup.boolean().required("Availability is required"),
-  size: yup
-    .object()
-    .shape({
-      size: yup.string().optional(),
-      chest: yup.string().optional(),
-      length: yup.string().optional(),
-      sleeve: yup.string().optional(),
-    })
-    .optional(),
 });

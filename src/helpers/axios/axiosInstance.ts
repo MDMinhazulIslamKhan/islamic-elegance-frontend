@@ -40,7 +40,8 @@ axiosInstance.interceptors.response.use(
     const responseObject: IGenericErrorResponse = {
       statusCode: error?.response?.data?.statusCode || 500,
       message:
-        error?.response?.data?.message || "Something going wrong from me.",
+        error?.response?.data?.message ||
+        "Something going wrong, try again later...",
       errorMessages: error?.response?.data?.errorMessages,
     };
     return responseObject;

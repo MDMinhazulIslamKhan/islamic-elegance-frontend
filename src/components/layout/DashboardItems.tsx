@@ -51,6 +51,16 @@ const DashboardItems = () => {
     {
       key: "3",
       label: (
+        <Link href="/profile">
+          <button className="btn w-full btn-secondary text-primary  btn-sm">
+            My Profile
+          </button>
+        </Link>
+      ),
+    },
+    {
+      key: "4",
+      label: (
         <button
           onClick={() => logoutUser()}
           className="btn w-full btn-secondary text-primary  btn-sm"
@@ -65,7 +75,7 @@ const DashboardItems = () => {
     <>
       {isLogin ? (
         <Dropdown arrow menu={{ items }}>
-          <Space wrap size={16}>
+          <Space wrap size={16} className="sm:mb-0 mb-2">
             <Avatar size="large" icon={<UserOutlined />} />
           </Space>
         </Dropdown>

@@ -4,25 +4,12 @@ import { getErrorMessageByPropertyName } from "@/utils/schema-validator";
 import { useFormContext, Controller } from "react-hook-form";
 interface IInput {
   name: string;
-  type?: string;
-  value?: string | string[] | undefined;
-  placeholder?: string;
   label?: string;
   required?: boolean;
-  min?: number;
   size?: "md" | "sm";
 }
 
-const FormInput = ({
-  name,
-  type,
-  value,
-  placeholder,
-  label,
-  size,
-  required,
-  min,
-}: IInput) => {
+const FormImageInput = ({ name, label, size, required }: IInput) => {
   const {
     control,
     formState: { errors },
@@ -41,14 +28,12 @@ const FormInput = ({
       <Controller
         control={control}
         name={name}
-        render={({ field }) => (
+        render={({ field: { onChange } }) => (
           <input
-            type={type}
-            placeholder={placeholder}
-            {...field}
-            min={min}
-            value={value ? value : field.value}
-            className={`input input-bordered w-full ${
+            type="file"
+            accept="image/png, image/jpeg"
+            onChange={(e) => onChange(e.target.files as FileList)}
+            className={`file-input input-bordered w-full ${
               size == "md" ? "max-w-md" : "max-w-xs"
             }`}
           />
@@ -59,4 +44,4 @@ const FormInput = ({
   );
 };
 
-export default FormInput;
+export default FormImageInput;

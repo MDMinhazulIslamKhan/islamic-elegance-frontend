@@ -27,7 +27,7 @@ export const userApi = baseApi.injectEndpoints({
         method: "PATCH",
         data: data,
       }),
-      invalidatesTags: [tagTypes.user, tagTypes.task],
+      invalidatesTags: [tagTypes.user],
     }),
     updatePassword: build.mutation({
       query: (data) => ({
@@ -35,7 +35,7 @@ export const userApi = baseApi.injectEndpoints({
         method: "PATCH",
         data: data,
       }),
-      invalidatesTags: [tagTypes.user, tagTypes.task],
+      invalidatesTags: [tagTypes.user],
     }),
     getAllUser: build.query({
       query: () => {
@@ -44,7 +44,7 @@ export const userApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
-      providesTags: [tagTypes.task, tagTypes.user],
+      providesTags: [tagTypes.user],
     }),
     getMyProfile: build.query({
       query: () => {
@@ -53,7 +53,7 @@ export const userApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
-      providesTags: [tagTypes.task, tagTypes.user],
+      providesTags: [tagTypes.user],
     }),
   }),
 });

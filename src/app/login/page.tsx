@@ -36,7 +36,7 @@ const Login = () => {
         message.error(res.message);
       }
     } catch (error) {
-      window.alert("Something went wrong");
+      window.alert("Something went wrong, try again later...");
     }
   };
   return (

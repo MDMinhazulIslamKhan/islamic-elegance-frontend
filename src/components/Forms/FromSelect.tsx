@@ -1,7 +1,7 @@
 "use client";
-export type SelectOptions = {
+type SelectOptions = {
   label: string;
-  value: string;
+  value: string | boolean;
 };
 
 import { getErrorMessageByPropertyName } from "@/utils/schema-validator";
@@ -18,7 +18,6 @@ interface IInput {
 
 const FromSelectInput = ({
   name,
-  value,
   options,
   placeholder,
   label,
@@ -54,7 +53,9 @@ const FromSelectInput = ({
           >
             {options.map((option) => (
               <>
-                <option value={option.value}>{option.label}</option>
+                <option key={option.label} value={String(option.value)}>
+                  {option.label}
+                </option>
               </>
             ))}
           </select>

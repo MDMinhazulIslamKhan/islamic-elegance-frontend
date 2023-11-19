@@ -1,6 +1,6 @@
+"use client";
 import { useAppSelector } from "@/redux/hooks";
 import { getUserInfo } from "@/services/auth.service";
-import { message } from "antd";
 import { useRouter } from "next/navigation";
 import { ReactNode, useEffect } from "react";
 

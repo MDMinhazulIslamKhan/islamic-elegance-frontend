@@ -1,34 +1,33 @@
 "use client";
 
-import { getErrorMessageByPropertyName } from "@/utils/schema-validator";
+import { Select } from "antd";
 import { useFormContext, Controller } from "react-hook-form";
-interface IInput {
+
+export type SelectOptions = {
+  label: string;
+  value: string;
+};
+
+type SelectFieldProps = {
+  options: SelectOptions[];
   name: string;
-  type?: string;
+  size?: "md" | "sm";
   value?: string | string[] | undefined;
   placeholder?: string;
   label?: string;
+  defaultValue?: SelectOptions;
   required?: boolean;
-  min?: number;
-  size?: "md" | "sm";
-}
+};
 
-const FormInput = ({
+const FormMultiSelectField = ({
   name,
-  type,
-  value,
-  placeholder,
-  label,
   size,
+  placeholder = "select",
+  options,
+  label,
   required,
-  min,
-}: IInput) => {
-  const {
-    control,
-    formState: { errors },
-  } = useFormContext();
-
-  const errorMessage = getErrorMessageByPropertyName(errors, name);
+}: SelectFieldProps) => {
+  const { control } = useFormContext();
 
   return (
     <>
@@ -41,22 +40,23 @@ const FormInput = ({
       <Controller
         control={control}
         name={name}
-        render={({ field }) => (
-          <input
-            type={type}
+        render={({ field: { value, onChange } }) => (
+          <Select
+            onChange={onChange}
+            options={options}
+            value={value}
             placeholder={placeholder}
-            {...field}
-            min={min}
-            value={value ? value : field.value}
+            key={value?.label}
+            allowClear
+            mode="multiple"
             className={`input input-bordered w-full ${
               size == "md" ? "max-w-md" : "max-w-xs"
             }`}
           />
         )}
       />
-      <small className="text-red-500 mt-1 ml-1">{errorMessage}</small>
     </>
   );
 };
 
-export default FormInput;
+export default FormMultiSelectField;

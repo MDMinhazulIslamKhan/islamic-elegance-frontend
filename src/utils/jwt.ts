@@ -1,4 +1,7 @@
+import { authKey } from "@/constants/storageKey";
+import { removeUserInfo } from "@/services/auth.service";
 import { jwtDecode } from "jwt-decode";
+import { useRouter } from "next/navigation";
 
 export const decodedToken = (
   token: string
@@ -7,5 +10,11 @@ export const decodedToken = (
   phoneNumber: string;
   role: string;
 } => {
-  return jwtDecode(token);
+  try {
+    return jwtDecode(token);
+  } catch (error) {
+    removeUserInfo(authKey);
+    location.reload();
+    return { id: "", phoneNumber: "", role: "" };
+  }
 };
