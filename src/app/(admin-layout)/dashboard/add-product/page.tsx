@@ -46,11 +46,11 @@ const AddProduct = () => {
     data.imgURL = imageData?.data?.display_url;
     try {
       const res = await createProduct({ ...data }).unwrap();
-      console.log(res);
       if (res?.statusCode == 200) {
         message.success(res?.message);
-        router.push("/");
+        // router.push("/");
       } else {
+        console.log(res.message);
         message.error(res.message);
       }
     } catch (error) {

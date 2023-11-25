@@ -56,7 +56,7 @@ const Footer = () => {
         <div className="flex sm:flex-row flex-col justify-around overflow-hidden">
           <div className="flex flex-col gap-2">
             <a
-              href="https://www.facebook.com/61552713907491"
+              href="https://www.facebook.com/mdminhazulislam.khan.77"
               className="flex gap-4 items-center text-xs my-2"
               target="_blank"
             >
@@ -67,7 +67,7 @@ const Footer = () => {
               </p>
             </a>
             <a
-              href="www.islamic-elegance.com"
+              href="https://islamic-elegance.vercel.app/"
               target="_blank"
               className="flex gap-4 items-center text-xs mt-2"
             >
