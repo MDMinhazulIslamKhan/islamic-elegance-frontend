@@ -1,19 +1,39 @@
 "use client";
+import AllProduct from "@/components/Products/ShowProduct";
 import { useGetAllProductsQuery } from "@/redux/api/productApi";
-import { addToLocalStorage } from "@/services/cart.service";
-import { Carousel, Spin } from "antd";
+import { Carousel } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React from "react";
 
 const Home = () => {
-  const router = useRouter();
   const contentStyle: React.CSSProperties = {
     lineHeight: "160px",
     textAlign: "center",
   };
-  const { data, isLoading } = useGetAllProductsQuery(undefined);
+  const { data, isLoading } = useGetAllProductsQuery({
+    limit: 6,
+  });
+  const { data: hoodieData } = useGetAllProductsQuery({
+    limit: 6,
+    category: "Hoodie",
+  });
+  const { data: jacketData } = useGetAllProductsQuery({
+    limit: 6,
+    category: "Jacket",
+  });
+  const { data: jerseyData } = useGetAllProductsQuery({
+    limit: 6,
+    category: "Jersey",
+  });
+  const { data: attarData } = useGetAllProductsQuery({
+    limit: 6,
+    category: "Attar",
+  });
+  const { data: foodData } = useGetAllProductsQuery({
+    limit: 6,
+    category: "Food",
+  });
   return (
     <div className="mb-20">
       <div className="flex justify-around">
@@ -194,51 +214,132 @@ const Home = () => {
           <span className="loading loading-spinner text-secondary col-span-3 mx-auto"></span>
         )}
         {data?.data?.map((product: any) => (
-          <div
-            key={product?._id}
-            className="min-h-[500px] sm:mx-autos sm:w-72 md:w-full bg-green-50 shadow-xl rounded-xl hover:scale-105 duration-700"
-          >
-            <div className="items-center pt-8 mx-5 pb-0 mb-0">
-              <h2 className="font-bold text-xl text-center">{product?.name}</h2>
-              <p className="font-bold text-center">
-                <span className="text-primary">Price</span> ৳{product?.price}
-              </p>
-            </div>
-            <figure className="px-4 h-72">
-              <Image
-                alt="banner"
-                width={500}
-                height={500}
-                src={product?.imgURL}
-                className="rounded-xl h-64 my-5"
-              />
-            </figure>
-            <div className="pt-0 mx-2 items-center text-center sm:h-32 h-fit pb-10 relative mb-8">
-              <p className="pb-4">
-                {product?.shortDescription?.slice(0, 140)}
-                {product?.shortDescription?.length > 140 && "..."}
-              </p>
-              <div className="flex justify-around w-full absolute bottom-0">
-                <button
-                  onClick={() => {
-                    addToLocalStorage(product?._id, product?.name, "none");
-                    router.push("/cart");
-                  }}
-                  className="btn btn-primary btn-sm"
-                >
-                  Add to Cart
-                </button>
-                <Link
-                  href={`/product/${product?._id}`}
-                  className="font-semibold hover:text-primary"
-                >
-                  See more
-                </Link>
-              </div>
-            </div>
-          </div>
+          <AllProduct key={product?._id} product={product} />
         ))}
       </div>
+      <div className="w-full flex justify-center">
+        <Link
+          href="/all-products"
+          className="btn bg-secondary py-3 px-7 font-bold hover:bg-primary hover:text-white text-primary rounded-xl w-full sm:w-1/2 lg:w-1/4 mt-3"
+        >
+          See All Products
+        </Link>
+      </div>
+      {hoodieData?.data?.length != 0 && (
+        <>
+          <h1 className="text-primary mb-5 mt-16 font-bold text-3xl underline font-serif text-center">
+            Hoodies
+          </h1>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 grid-cols-1 mb-5 gap-x-3 lg:gap-x-5 gap-y-8">
+            {isLoading && (
+              <span className="loading loading-spinner text-secondary col-span-3 mx-auto"></span>
+            )}
+            {hoodieData?.data?.map((product: any) => (
+              <AllProduct key={product?._id} product={product} />
+            ))}
+          </div>
+          <div className="w-full flex justify-center">
+            <Link
+              href="/hoodie"
+              className="btn bg-secondary py-3 px-7 font-bold hover:bg-primary hover:text-white text-primary rounded-xl w-full sm:w-1/2 lg:w-1/4 mt-3"
+            >
+              See All Hoodies
+            </Link>
+          </div>
+        </>
+      )}
+      {foodData?.data?.length != 0 && (
+        <>
+          <h1 className="text-primary mb-5 mt-16 font-bold text-3xl underline font-serif text-center">
+            Food Items
+          </h1>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 grid-cols-1 mb-5 gap-x-3 lg:gap-x-5 gap-y-8">
+            {isLoading && (
+              <span className="loading loading-spinner text-secondary col-span-3 mx-auto"></span>
+            )}
+            {foodData?.data?.map((product: any) => (
+              <AllProduct key={product?._id} product={product} />
+            ))}
+          </div>
+          <div className="w-full flex justify-center">
+            <Link
+              href="/food"
+              className="btn bg-secondary py-3 px-7 font-bold hover:bg-primary hover:text-white text-primary rounded-xl w-full sm:w-1/2 lg:w-1/4 mt-3"
+            >
+              See All Foods
+            </Link>
+          </div>
+        </>
+      )}
+      {attarData?.data?.length != 0 && (
+        <>
+          <h1 className="text-primary mb-5 mt-16 font-bold text-3xl underline font-serif text-center">
+            Attar
+          </h1>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 grid-cols-1 mb-5 gap-x-3 lg:gap-x-5 gap-y-8">
+            {isLoading && (
+              <span className="loading loading-spinner text-secondary col-span-3 mx-auto"></span>
+            )}
+            {attarData?.data?.map((product: any) => (
+              <AllProduct key={product?._id} product={product} />
+            ))}
+          </div>
+          <div className="w-full flex justify-center">
+            <Link
+              href="/attar"
+              className="btn bg-secondary py-3 px-7 font-bold hover:bg-primary hover:text-white text-primary rounded-xl w-full sm:w-1/2 lg:w-1/4 mt-3"
+            >
+              See All Attars
+            </Link>
+          </div>
+        </>
+      )}
+      {jerseyData?.data?.length != 0 && (
+        <>
+          <h1 className="text-primary mb-5 mt-16 font-bold text-3xl underline font-serif text-center">
+            Jersey
+          </h1>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 grid-cols-1 mb-5 gap-x-3 lg:gap-x-5 gap-y-8">
+            {isLoading && (
+              <span className="loading loading-spinner text-secondary col-span-3 mx-auto"></span>
+            )}
+            {jerseyData?.data?.map((product: any) => (
+              <AllProduct key={product?._id} product={product} />
+            ))}
+          </div>
+          <div className="w-full flex justify-center">
+            <Link
+              href="/jersey"
+              className="btn bg-secondary py-3 px-7 font-bold hover:bg-primary hover:text-white text-primary rounded-xl w-full sm:w-1/2 lg:w-1/4 mt-3"
+            >
+              See All Jersey
+            </Link>
+          </div>
+        </>
+      )}
+      {jacketData?.data?.length != 0 && (
+        <>
+          <h1 className="text-primary mb-5 mt-16 font-bold text-3xl underline font-serif text-center">
+            Jacket
+          </h1>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 grid-cols-1 mb-5 gap-x-3 lg:gap-x-5 gap-y-8">
+            {isLoading && (
+              <span className="loading loading-spinner text-secondary col-span-3 mx-auto"></span>
+            )}
+            {jacketData?.data?.map((product: any) => (
+              <AllProduct key={product?._id} product={product} />
+            ))}
+          </div>
+          <div className="w-full flex justify-center">
+            <Link
+              href="/jacket"
+              className="btn bg-secondary py-3 px-7 font-bold hover:bg-primary hover:text-white text-primary rounded-xl w-full sm:w-1/2 lg:w-1/4 mt-3"
+            >
+              See All Jackets
+            </Link>
+          </div>
+        </>
+      )}
     </div>
   );
 };
