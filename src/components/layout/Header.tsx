@@ -89,6 +89,34 @@ const Header = () => {
         },
       ],
     },
+    {
+      key: "4",
+      type: "group",
+      label: (
+        <Link
+          href="/attar"
+          className="btn w-full btn-secondary text-primary btn-sm"
+        >
+          Attar
+        </Link>
+      ),
+      className:
+        "bg-neutral text-primary rounded-lg font-bold text-center mt-2",
+    },
+    {
+      key: "3",
+      type: "group",
+      label: (
+        <Link
+          href="/food"
+          className="btn w-full btn-secondary text-primary btn-sm"
+        >
+          Food
+        </Link>
+      ),
+      className:
+        "bg-neutral text-primary rounded-lg font-bold text-center mt-2",
+    },
   ];
 
   return (

@@ -32,7 +32,7 @@ const AllProduct = ({ product }: { product: any }) => {
         <div className="flex justify-around w-full absolute bottom-0">
           <button
             onClick={() => {
-              addToLocalStorage(product?._id, product?.name, "none");
+              addToLocalStorage(product?._id, product?.name, 1);
               router.push("/cart");
             }}
             className="btn btn-primary btn-sm"

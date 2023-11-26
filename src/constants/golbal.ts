@@ -5,8 +5,8 @@ export const categoryOptions = [
   { label: "Jersey", value: "Jersey" },
   { label: "Panjabi", value: "Panjabi" },
   { label: "T-shirt", value: "T-shirt" },
-  { label: "Borka", value: "Borka" },
   { label: "Attar", value: "Attar" },
+  { label: "Food", value: "Food" },
 ];
 
 export const availability = [
@@ -21,5 +21,7 @@ export const sizeOptions = [
   { label: "L", value: "L" },
   { label: "XL", value: "XL" },
   { label: "XXL", value: "XXL" },
-  { label: "500 mL", value: "500mL" },
+  { label: "6 mL", value: "6mL" },
+  { label: "10 mL", value: "10mL" },
+  { label: "25 mL", value: "25mL" },
 ];

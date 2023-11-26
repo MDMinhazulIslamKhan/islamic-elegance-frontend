@@ -48,9 +48,8 @@ const AddProduct = () => {
       const res = await createProduct({ ...data }).unwrap();
       if (res?.statusCode == 200) {
         message.success(res?.message);
-        // router.push("/");
+        router.push("/");
       } else {
-        console.log(res.message);
         message.error(res.message);
       }
     } catch (error) {

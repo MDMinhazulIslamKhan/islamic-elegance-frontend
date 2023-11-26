@@ -6,7 +6,7 @@ import { ConfigProvider, Empty, Slider } from "antd";
 import { SliderMarks } from "antd/es/slider";
 import React, { useEffect, useState } from "react";
 
-const AllProducts = () => {
+const CategoryPage = ({ categoryName }: { categoryName: string }) => {
   const marks: SliderMarks = {
     0: "0",
     1000: "৳1000",
@@ -20,7 +20,6 @@ const AllProducts = () => {
   const [size, setSize] = useState<number>(10);
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(Infinity);
-  const [category, setCategory] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -33,9 +32,7 @@ const AllProducts = () => {
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
 
-  if (!!category) {
-    query["category"] = category;
-  }
+  query["category"] = categoryName;
   const debouncedSearchTerm = useDebounced({
     searchQuery: searchTerm,
     delay: 300,
@@ -89,10 +86,10 @@ const AllProducts = () => {
   return (
     <div>
       <h1 className="text-primary my-5 font-bold text-3xl underline font-serif text-center">
-        All Products
+        {categoryName}
       </h1>
       <div className="flex sm:flex-row flex-col justify-end sm:justify-center sm:items-center items-end mb-3 sm:mr-8">
-        <div className="flex flex-col items-end w-full sm:mr-2">
+        <div className="flex flex-col items-end w-full sm:mr-8">
           <p className="text-xs text-primary text-center w-full">Price Range</p>
           <ConfigProvider
             theme={{
@@ -130,21 +127,6 @@ const AllProducts = () => {
           className="input input-primary input-sm ml-3 w-40 mb-2"
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <select
-          className="select select-primary select-sm ml-3 sm:w-30 w-40 mb-2"
-          onChange={(e) => setCategory(e.target.value)}
-        >
-          <option value="" selected>
-            All Product
-          </option>
-          <option value="Jacket">Jacket</option>
-          <option value="Hoodie">Hoodie</option>
-          <option value="Jersey">Jersey</option>
-          <option value="Panjabi">Panjabi</option>
-          <option value="T-shirt">T-shirt</option>
-          <option value="Food">Food</option>
-          <option value="Attar">Attar</option>
-        </select>
       </div>
       {data?.data?.length !== 0 ? (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 grid-cols-1 mb-5 gap-x-3 lg:gap-x-5 gap-y-8">
@@ -188,4 +170,4 @@ const AllProducts = () => {
   );
 };
 
-export default AllProducts;
+export default CategoryPage;
