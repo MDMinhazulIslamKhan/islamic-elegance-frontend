@@ -22,7 +22,7 @@ type SelectFieldProps = {
 const FormMultiSelectField = ({
   name,
   size,
-  placeholder = "select",
+  placeholder = "Select",
   options,
   label,
   required,
@@ -49,9 +49,9 @@ const FormMultiSelectField = ({
             key={value?.label}
             allowClear
             mode="multiple"
-            className={`input input-bordered w-full ${
+            className={`input w-full ${
               size == "md" ? "max-w-md" : "max-w-xs"
-            }`}
+            } m-0 p-0`}
           />
         )}
       />

@@ -14,7 +14,7 @@ import { createProductSchema } from "@/schemas/allValidationSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { message } from "antd";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 
 type FormValues = {
@@ -32,8 +32,10 @@ type FormValues = {
 const AddProduct = () => {
   const [createProduct] = useCreateProductMutation(undefined);
   const router = useRouter();
+  const [isClicked, setIsClicked] = useState<boolean>(false);
 
   const onSubmit: SubmitHandler<FormValues> = async (data: any) => {
+    setIsClicked(true);
     const image = data.imgURL[0];
     let imageData = null;
     if (image) {
@@ -41,6 +43,7 @@ const AddProduct = () => {
     }
     if (imageData?.success === "false") {
       message.error("Image upload failed!");
+      setIsClicked(false);
       return;
     }
     data.imgURL = imageData?.data?.display_url;
@@ -48,12 +51,15 @@ const AddProduct = () => {
       const res = await createProduct({ ...data }).unwrap();
       if (res?.statusCode == 200) {
         message.success(res?.message);
+        setIsClicked(false);
         router.push("/");
       } else {
         message.error(res.message);
+        setIsClicked(false);
       }
     } catch (error) {
       window.alert("Something went wrong, please try again later...");
+      setIsClicked(false);
     }
   };
   return (
@@ -144,7 +150,8 @@ const AddProduct = () => {
             <div className="form-control max-w-md mt-6">
               <button
                 type="submit"
-                className="btn btn-primary max-w-md text-white font-bold"
+                disabled={isClicked}
+                className="btn btn-primary disabled:bg-secondary max-w-md text-white font-bold"
               >
                 Add Product
               </button>

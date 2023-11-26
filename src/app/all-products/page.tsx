@@ -17,7 +17,7 @@ const AllProducts = () => {
   const query: Record<string, any> = {};
   const [pageNo, setPageNo] = useState<number>(1);
   const [totalPage, setTotalPage] = useState<number>(1);
-  const [size, setSize] = useState<number>(10);
+  const [size, setSize] = useState<number>(9);
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(Infinity);
   const [category, setCategory] = useState<string | null>(null);
