@@ -1,4 +1,4 @@
-# **Islamic elegance (Backend)**
+# **Islamic elegance (Frontend)**
 
 ### **Live Site - [_click here_](https://islamic-elegance.vercel.app)**
 
@@ -76,3 +76,16 @@
   - Change user password
   - Add product
   - Update product
+
+## ADMIN login info
+
+- Phone Number : 01521438469
+
+- Password : 123456
+
+```json
+{
+  "phoneNumber": "01521438469",
+  "password": "123456"
+}
+```

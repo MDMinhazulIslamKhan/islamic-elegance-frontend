@@ -52,11 +52,16 @@ const Login = () => {
                 name="phoneNumber"
                 type="text"
                 label="Phone Number"
+                placeholder="admin - 01521438469"
                 required
               />
             </div>
             <div className="form-control w-full max-w-xs">
-              <PassWordInput name="password" label="Password" />
+              <PassWordInput
+                name="password"
+                placeholder="admin - 123456"
+                label="Password"
+              />
             </div>
             <div className="form-control mt-6">
               <button
